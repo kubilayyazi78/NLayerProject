@@ -8,6 +8,7 @@ namespace NLayerProject.Core.UnitOfWorks
 {
    public interface IUnitOfWork
     {
+        //biz bu metotları çağırdığımız zaman savechanges olacak.Sıralı işlemlerde kullanılır 
 
         IProductRepository Products { get; }
 
