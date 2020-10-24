@@ -7,7 +7,7 @@ using System.Text;
 
 namespace NLayerProject.Data.Configurations
 {
-    class ProductConfiguration : IEntityTypeConfiguration<Product>
+   public class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
@@ -21,6 +21,8 @@ namespace NLayerProject.Data.Configurations
             builder.Property(x => x.Price).IsRequired().HasColumnType("decimal(18,2)");
 
             builder.Property(x => x.InnerBarcode).HasMaxLength(50);
+
+            builder.ToTable("Products");
         }
     }
 }
