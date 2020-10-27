@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLayerProject.API.DTOs;
+using NLayerProject.Core.Models;
 using NLayerProject.Core.Services;
 
 namespace NLayerProject.API.Controllers
@@ -37,5 +38,33 @@ namespace NLayerProject.API.Controllers
 
             return Ok(_mapper.Map<ProductDto>(product));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Save(ProductDto productDto)
+        {
+            var product = await _productService.AddAsync(_mapper.Map<Product>(productDto));
+
+            return Created(string.Empty,_mapper.Map<ProductDto>(product));
+        }
+        [HttpPut]
+        public IActionResult Update(ProductDto productDto)
+        {
+            _productService.Update(_mapper.Map<Product>(productDto));
+
+            return NoContent();
+
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Remove(int id)
+        {
+            var product = _productService.GetEntityAsync(id).Result;
+
+            _productService.Remove(product);
+
+            return NoContent();
+        }
+
+
     }
 }
