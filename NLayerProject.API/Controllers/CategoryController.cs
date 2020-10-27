@@ -58,5 +58,15 @@ namespace NLayerProject.API.Controllers
 
             
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Remove(int id)
+        {
+
+            var category = _categoryService.GetEntityAsync(id).Result;
+            _categoryService.Remove(category);
+
+            return NoContent();
+        }
     }
 }
