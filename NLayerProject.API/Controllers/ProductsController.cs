@@ -53,6 +53,12 @@ namespace NLayerProject.API.Controllers
         [HttpPut]
         public IActionResult Update(ProductDto productDto)
         {
+
+          /*  if (string.IsNullOrEmpty(productDto.Id.ToString())|| productDto.Id<=0)
+            {
+                throw new Exception("Id gereklidir");
+            } Tavsiye edilmez.
+          */
             _productService.Update(_mapper.Map<Product>(productDto));
 
             return NoContent();
