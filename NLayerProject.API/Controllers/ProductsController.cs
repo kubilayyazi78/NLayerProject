@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLayerProject.API.DTOs;
+using NLayerProject.API.Filters;
 using NLayerProject.Core.Models;
 using NLayerProject.Core.Services;
 
@@ -40,6 +41,7 @@ namespace NLayerProject.API.Controllers
         }
 
         [HttpPost]
+        [ValidationFilter]
         public async Task<IActionResult> Save(ProductDto productDto)
         {
             var product = await _productService.AddAsync(_mapper.Map<Product>(productDto));
