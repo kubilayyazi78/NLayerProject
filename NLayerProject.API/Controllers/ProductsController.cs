@@ -32,6 +32,8 @@ namespace NLayerProject.API.Controllers
 
             return Ok(_mapper.Map<IEnumerable<ProductDto>>(products));
         }
+
+        [ServiceFilter(typeof(NotFoundFilter))]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -41,7 +43,7 @@ namespace NLayerProject.API.Controllers
         }
 
         [HttpPost]
-        [ValidationFilter]
+       // [ValidationFilter]
         public async Task<IActionResult> Save(ProductDto productDto)
         {
             var product = await _productService.AddAsync(_mapper.Map<Product>(productDto));
@@ -58,6 +60,7 @@ namespace NLayerProject.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ServiceFilter(typeof(NotFoundFilter))]
         public IActionResult Remove(int id)
         {
             var product = _productService.GetEntityAsync(id).Result;
@@ -68,6 +71,7 @@ namespace NLayerProject.API.Controllers
         }
 
         [HttpGet("{id}/category")]
+        [ServiceFilter(typeof(NotFoundFilter))]
         public async Task<IActionResult> GetWithCategoryById(int id )
         {
             var productWithCategory =await  _productService.GetWithCategoryByIdAsync(id);
