@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using NLayerProject.Core.Services;
+using NLayerProject.Web.DTOs;
 
 namespace NLayerProject.Web.Controllers
 {
@@ -19,9 +20,14 @@ namespace NLayerProject.Web.Controllers
             _mapper = mapper;
         }
 
-        public IActionResult Index()
+        public async  Task<IActionResult> Index()
         {
-            return View();
+
+            var categories = await _categoryService.GetAllAsync();
+
+            var categoriesDto = _mapper.Map<IEnumerable<CategoryDto>>(categories);
+
+            return View(categoriesDto);
         }
     }
 }
