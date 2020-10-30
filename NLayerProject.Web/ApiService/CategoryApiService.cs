@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using NLayerProject.Web.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -15,6 +17,26 @@ namespace NLayerProject.Web.ApiService
         {
             _httpClient = httpClient;
         }
+
+        public async Task<IEnumerable<CategoryDto>> GetAllAsync()
+        {
+            IEnumerable<CategoryDto> categoryDtos;
+
+            var response = await _httpClient.GetAsync("categories");
+
+            if (response.IsSuccessStatusCode)
+            {
+                categoryDtos = JsonConvert.DeserializeObject<IEnumerable<CategoryDto>>(await response.Content.ReadAsStringAsync());
+            }
+            else
+            {
+                categoryDtos = null;
+            }
+
+            return categoryDtos;
+
+        }
+
 
     }
 }
