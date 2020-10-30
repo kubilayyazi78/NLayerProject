@@ -15,13 +15,13 @@ namespace NLayerProject.Web.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IMapper _mapper;
 
-        public CategoriesController(ICategoryService categoryService,IMapper mapper)
+        public CategoriesController(ICategoryService categoryService, IMapper mapper)
         {
             _categoryService = categoryService;
             _mapper = mapper;
         }
 
-        public async  Task<IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
 
             var categories = await _categoryService.GetAllAsync();
@@ -57,11 +57,21 @@ namespace NLayerProject.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update (CategoryDto categoryDto)
+        public IActionResult Update(CategoryDto categoryDto)
         {
             _categoryService.Update(_mapper.Map<Category>(categoryDto));
 
             return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var category = _categoryService.GetEntityAsync(id).Result;
+
+            _categoryService.Remove(category);
+
+            return RedirectToAction("Index");
+
         }
 
 
