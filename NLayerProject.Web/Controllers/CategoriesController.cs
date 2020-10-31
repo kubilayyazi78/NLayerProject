@@ -75,11 +75,15 @@ namespace NLayerProject.Web.Controllers
         }
 
         [ServiceFilter(typeof(NotFoundFilter))]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var category = _categoryService.GetEntityAsync(id).Result;
+            //var category = _categoryService.GetEntityAsync(id).Result;
 
-            _categoryService.Remove(category);
+            // _categoryService.Remove(category);
+
+           
+
+            await _categoryApiService.Remove(id);
 
             return RedirectToAction("Index");
 
