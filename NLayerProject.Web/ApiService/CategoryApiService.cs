@@ -39,11 +39,11 @@ namespace NLayerProject.Web.ApiService
 
         }
 
-       
+
         public async Task<CategoryDto> AddAsync(CategoryDto categoryDto)
         {
 
-            var stringContent = new StringContent(JsonConvert.SerializeObject(categoryDto),Encoding.UTF8,"application/json");
+            var stringContent = new StringContent(JsonConvert.SerializeObject(categoryDto), Encoding.UTF8, "application/json");
 
             var response = await _httpClient.PostAsync("categories", stringContent);
 
@@ -74,9 +74,41 @@ namespace NLayerProject.Web.ApiService
             {
                 return null;
             }
-            
+
         }
 
+        /*    public CategoryDto Update(CategoryDto categoryDto)
+            {
 
+                var stringContent = new StringContent(JsonConvert.SerializeObject(categoryDto), Encoding.UTF8, "application/json");
+
+                var response = _httpClient.PutAsync( "categories", stringContent).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return JsonConvert.DeserializeObject<CategoryDto>(response.Content.ReadAsStringAsync().Result);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            */
+        public async Task<bool> Update(CategoryDto categoryDto)
+        {
+            var stringContent = new StringContent(JsonConvert.SerializeObject(categoryDto), Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PutAsync("categories", stringContent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

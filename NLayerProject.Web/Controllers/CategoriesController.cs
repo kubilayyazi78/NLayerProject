@@ -18,7 +18,7 @@ namespace NLayerProject.Web.Controllers
         private readonly IMapper _mapper;
         private readonly CategoryApiService _categoryApiService;
 
-        public CategoriesController(ICategoryService categoryService, IMapper mapper,CategoryApiService categoryApiService)
+        public CategoriesController(ICategoryService categoryService, IMapper mapper, CategoryApiService categoryApiService)
         {
             _categoryService = categoryService;
             _mapper = mapper;
@@ -65,9 +65,11 @@ namespace NLayerProject.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(CategoryDto categoryDto)
+        public async Task<IActionResult> Update(CategoryDto categoryDto)
         {
-            _categoryService.Update(_mapper.Map<Category>(categoryDto));
+            //  _categoryService.Update(_mapper.Map<Category>(categoryDto));
+
+            await _categoryApiService.Update(categoryDto);
 
             return RedirectToAction("Index");
         }
