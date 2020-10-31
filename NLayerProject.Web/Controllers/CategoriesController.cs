@@ -57,7 +57,9 @@ namespace NLayerProject.Web.Controllers
 
         public async Task<IActionResult> Update(int id)
         {
-            var category = await _categoryService.GetEntityAsync(id);
+            // var category = await _categoryService.GetEntityAsync(id);
+
+            var category = await _categoryApiService.GetByIdAsync(id);
 
             return View(_mapper.Map<CategoryDto>(category));
         }
